@@ -30,10 +30,10 @@ SpreadCho generates a CSV file that contains user informations. From that, you c
 ### HOW IT WORKS 
 
 #### Add Manually Datas<br />
-######Fill the fields in and click on Add User to add a row to the CSV.<br />
+###### Fill the fields in and click on Add User to add a row to the CSV.<br />
 
 #### Generate Multiple Users<br />
-######Type in a number then click on Generate, the user infos will be automatically displayed.<br />
+###### Type in a number then click on Generate, the user infos will be automatically displayed.<br />
 
 #### Delete Row(s) or Replace Informations<br />
 ###### Select the information you want to delete, write it in the specific field then click on Delete. It will be updated immediately.<br />
