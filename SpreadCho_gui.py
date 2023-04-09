@@ -16,10 +16,8 @@ from faker import Faker
 
 fk = Faker()
 
-# define columns for the header csv file
 columns = ('first_name','last_name','age','address','email','phone','job_title','city')
 
-# define index columns 
 dict_columns = {'First Name': 0,
                     'Last Name': 1,
                     'Age': 2,
@@ -49,14 +47,12 @@ dict_groupby_naming = {'Mean': 'mean',
                      'Max':'max',
                      'Count':'Occurence'}
 
-# define file type
 dict_file_type = {'CSV': 0,
                   'XLS': 1}
 
 def save_data():
     global file
 
-    # write the columns' names and the datas if the the csv file does not exist
     if not os.path.exists(f'{os.getcwd()}/user_infos.csv'):
         with open(f'{os.getcwd()}/user_infos.csv', mode='w', newline='') as file:
             writer = csv.DictWriter(file, fieldnames=columns)
@@ -71,7 +67,6 @@ def save_data():
                 'job_title':job_title_entry.get(),
                 'city':city_entry.get()
             })
-    # write only the datas if the csv file already exists
     else:
         with open(f'{os.getcwd()}/user_infos.csv', mode='a', newline='') as file:
             writer = csv.DictWriter(file, fieldnames=columns)
@@ -86,8 +81,6 @@ def save_data():
                 'city':city_entry.get()
             })
 
-       
-        # clear the input fields
         first_name_entry.delete(0, tk.END)
         last_name_entry.delete(0, tk.END)
         address_entry.delete(0, tk.END)
@@ -103,7 +96,6 @@ def save_rand_data():
 
     nb = int(nb_users_entry.get())
 
-    # write the columns' names and the datas if the the csv file does not exist
     if not os.path.exists(f'{os.getcwd()}/user_infos.csv'):
         with open(f'{os.getcwd()}/user_infos.csv', mode='w', newline='') as file:
             writer = csv.DictWriter(file, fieldnames=columns)
@@ -130,7 +122,6 @@ def save_rand_data():
                     'job_title':job_title,
                     'city':city
                 })
-    # write only the datas if the csv file already exists
     else:
         with open(f'{os.getcwd()}/user_infos.csv', mode='a', newline='') as file:
             writer = csv.DictWriter(file, fieldnames=columns)
@@ -160,20 +151,55 @@ def save_rand_data():
     display_data()
     count_rows()
 
+def generate_users_mul():
+
+    nb_users = int(nb_users_entry.get())
+    nb_ss = int(nb_files_entry.get())
+    occ = 1
+    file = 'users_info_mul.csv'
+    file_raw = os.path.splitext(file)[0]
+    file_ext = os.path.splitext(file)[1]
+    
+    while occ < nb_ss:
+
+        with open(f'{file_raw}%s{file_ext}' % occ,'w', newline='') as file:
+            writer = csv.DictWriter(file, fieldnames=columns)
+            writer.writeheader()
+
+            for i in range(nb_users):
+                first_name = fk.first_name()
+                last_name = fk.last_name()
+                age = r.randint(19,65)
+                address = fk.address()
+                domain = fk.free_email_domain()
+                email = f'{first_name}.{last_name}@{domain}'
+                phone = f'({r.randint(100,1000)}) {r.randint(100,1000)}-{r.randint(1000,10000)}'
+                job_title = fk.job()
+                city = fk.city()
+
+                writer.writerow({
+                    'first_name':first_name,
+                    'last_name':last_name,
+                    'age':age,
+                    'address':address,
+                    'email':email.lower(),
+                    'phone':phone,
+                    'job_title':job_title,
+                    'city':city
+                })
+        occ += 1
+        print('done')
+
 def display_data():
     if not os.path.isfile(f'{os.getcwd()}/user_infos.csv'):
         messagebox.showinfo(title='File not found', message='Please Generate Data Before Displaying')
         pass
     
     else:
-        # clean the display_frame before displaying
         clear_frame()
-
-        # define where the spreadsheet will be displayed
         table = Frame(display_frame, width=600)
         table.pack(side=TOP)
 
-        # add scroll bars to parse the spreadsheet
         scrollbarx = Scrollbar(table, orient=HORIZONTAL)
         scrollbary = Scrollbar(table, orient=VERTICAL)
         tree = ttk.Treeview(table, columns=columns, height=300, selectmode="extended", yscrollcommand=scrollbary.set, xscrollcommand=scrollbarx.set)
@@ -182,7 +208,6 @@ def display_data():
         scrollbarx.config(command=tree.xview)
         scrollbarx.pack(side=BOTTOM, fill=X)
 
-        # define columns positions and names 
         tree.heading('first_name', text="First Name", anchor=W)
         tree.heading('last_name', text="Last Name", anchor=W)
         tree.heading('age', text="Age", anchor=W)
@@ -192,7 +217,6 @@ def display_data():
         tree.heading('job_title', text="Job Title", anchor=W)
         tree.heading('city', text="City", anchor=W)
 
-        # customize columns' sizes
         tree.column('#0', stretch=NO, minwidth=0, width=0)
         tree.column('#1', stretch=NO, minwidth=20, width=110)
         tree.column('#2', stretch=NO, minwidth=20, width=110)
@@ -205,7 +229,6 @@ def display_data():
 
         tree.pack()
 
-        # read the csv file to put informations into the display_frame
         with open(f'{os.getcwd()}/user_infos.csv', 'r') as f:
             reader = csv.DictReader(f, delimiter=',')
             for row in reader:
@@ -229,7 +252,6 @@ def display_data():
         dupl_rows()
 
 def clear_frame():
-    # delete informations from the display_frame 
     for items in display_frame.winfo_children():
         items.destroy()  
 
@@ -245,37 +267,21 @@ def del_row():
 
         # Open the CSV file
         with open(f'{os.getcwd()}/user_infos.csv', 'r') as file:
-
-            # Create a reader object
             reader = csv.reader(file)
-
-            # Create a list to store the rows that you want to keep
             rows_to_keep = []
 
-            # Loop through the rows in the reader object
             for row in reader:
-
-                # Check if the current row is the one that you want to delete
                 column_name = check_list.get()
                 idx_column = dict_columns[column_name]
                 if row[idx_column] != f'{string_del_entry.get()}':
-
-                    # If it's not the row to delete, append it to the list of rows to keep
                     rows_to_keep.append(row)
 
-        # Open the CSV file again, this time with the write mode
         with open(f'{os.getcwd()}/user_infos.csv', 'w', newline='') as file:
-
-            # Create a writer object
             writer = csv.writer(file)
 
-            # Loop through the list of rows that you want to keep
             for row in rows_to_keep:
-
-                # Write the row to the new file using the writerow method
                 writer.writerow(row)
 
-        # Close both the old and new CSV files
         file.close()
         display_data()
 
@@ -338,16 +344,13 @@ def groupby():
         scrollbarx.config(command=tree.xview)
         scrollbarx.pack(side=BOTTOM, fill=X)
 
-        # Format the columns
         for column in tree["columns"]:
             tree.column(column, width=200)
             tree.heading(column, text=column)
 
-        # Insert the data into the Treeview widget
         for i, row in csv_file_grpby.iterrows():
             tree.insert("", "end", text=i, values=list(row))
 
-        # Pack the Treeview widget and display the window
         tree.pack(expand=True)
 
 def export():
@@ -357,7 +360,6 @@ def export():
         pass
     
     else:
-        # define the file type
         ftype = export_file.get()
         f_type = dict_file_type[ftype]
 
@@ -431,7 +433,7 @@ def clean():
 """def onclose(event):
     quit()"""
 
-# create the tkinter window
+ # GUI STUFF
 window = tk.Tk()
 window.title('SpreadCho')
 width = 1200
@@ -443,13 +445,13 @@ y = (screen_height/4) - (height/4)
 window.geometry("%dx%d+%d+%d" % (width, height, x, y))
 window.resizable(0, 0)
 
-# split the window up - left side will contain data to add adn right side will display them in the csv 
+# FRAMES
 data_frame = tk.Frame(window, width=200, bg='#c5cca5')
 data_frame.pack(fill=Y, side=LEFT)
 display_frame = tk.Frame(window, width=1000, bg='grey')
 display_frame.pack( fill=Y, side=RIGHT)
 
-# define labels inside the data_frame frame 
+# LABELS FRAME
 data_frame_infos = tk.LabelFrame(data_frame, text='Users Informations', fg='black', background='#c5cca5', bd=3, foreground='red', font='Loma 13')
 data_frame_infos.grid(row=0,column=0, padx=5, pady=5)
 data_frame_fake = tk.LabelFrame(data_frame, text='Random Users Informations', fg='black', background='#c5cca5', bd=3, foreground='red', font='Loma 13', width=285, height=90)
@@ -463,7 +465,17 @@ data_frame_export.place(x=5,y=590)
 data_frame_inf = tk.LabelFrame(data_frame, text='Infos - Main File', fg='black', background='#c5cca5', foreground='red', font='Loma 12', bd=3, width=135, height=90)
 data_frame_inf.place(x=155,y=590)
 
-# add input fields for name, age, and email
+# LABELS
+nb_users = ck.CTkLabel(data_frame_fake, text='Number of Users', text_color='black')
+nb_users.place(x=10,y=5)
+nb_files = ck.CTkLabel(data_frame_fake, text='Number of Files', text_color='black')
+nb_files.place(x=10,y=40)
+lbl_is = ck.CTkLabel(data_frame_del_row, text='is', text_color='black')
+lbl_is.place(x=120,y=5)
+lbl_to = ck.CTkLabel(data_frame_del_row, text='to', text_color='black')
+lbl_to.place(x=112,y=40)
+lbl_is_2 = ck.CTkLabel(data_frame_del_row, text='is', text_color='black')
+lbl_is_2.place(x=5,y=40)
 first_name_label = ck.CTkLabel(data_frame_infos, text='First Name', text_color='black')
 first_name_label.grid(row=0, column=0)
 last_name_label = ck.CTkLabel(data_frame_infos, text='Last Name', text_color='black')
@@ -481,6 +493,7 @@ job_title_label.grid(row=6, column=0)
 city_label = ck.CTkLabel(data_frame_infos, text='City', text_color='black')
 city_label.grid(row=7, column=0)
 
+# ENTRIES
 first_name_entry_var = StringVar()
 first_name_entry_var.trace('w', on_entry_change)
 first_name_entry = ck.CTkEntry(data_frame_infos, textvariable=first_name_entry_var)
@@ -499,15 +512,11 @@ job_title_entry = ck.CTkEntry(data_frame_infos)
 job_title_entry.grid(row=6, column=1)
 city_entry = ck.CTkEntry(data_frame_infos)
 city_entry.grid(row=7, column=1)
-
-#add input field for number of fake users data
-nb_users = ck.CTkLabel(data_frame_fake, text='Number of Users', text_color='black')
-nb_users.place(x=10,y=5)
-
 nb_users_entry_int = IntVar()
-nb_users_entry = ck.CTkEntry(data_frame_fake, textvariable=nb_users_entry_int)
+nb_users_entry = ck.CTkEntry(data_frame_fake, textvariable=nb_users_entry_int, width=50)
 nb_users_entry.place(x=139,y=5)
-
+nb_files_entry = ck.CTkEntry(data_frame_fake, width=50)
+nb_files_entry.place(x=139,y=40)
 string_del_entry = ck.CTkEntry(data_frame_del_row, width=80)
 string_del_entry.place(x=139,y=5)
 string_ren_entry = ck.CTkEntry(data_frame_del_row, width=80)
@@ -515,19 +524,15 @@ string_ren_entry.place(x=130,y=40)
 string_ren_entry_2 = ck.CTkEntry(data_frame_del_row, width=80)
 string_ren_entry_2.place(x=25,y=40)
 
-# add a button to save the data
+# BUTTONS
 save_button = ck.CTkButton(data_frame_infos, text='Add User', fg_color='#626653', hover_color='black', border_width=3,state=DISABLED, text_color='white' ,command=save_data)
 save_button.grid(row=8, column=0)
-
-# add a button to display the data
 display_button = ck.CTkButton(data_frame_infos, text='Display Spreadsheat', fg_color='#626653', hover_color='black', text_color='white', border_width=3,command=display_data)
 display_button.grid(row=8, column=1)
-
-# add a button to display fake data
-display_button = ck.CTkButton(data_frame_fake, text='Generate', fg_color='#626653', hover_color='black', border_width=3,command=save_rand_data)
-display_button.place(x=0,y=40)
-
-# add a button 
+generate_button = ck.CTkButton(data_frame_fake, text='Generate', fg_color='#626653', hover_color='black', border_width=3, width=74, command=save_rand_data)
+generate_button.place(x=205,y=5)
+generateM_button = ck.CTkButton(data_frame_fake, text='Generate', fg_color='#626653', hover_color='black', border_width=3, width=74, command=generate_users_mul)
+generateM_button.place(x=205,y=40)
 del_button = ck.CTkButton(data_frame_del_row, text='Delete', fg_color='#626653', hover_color='black', border_width=3,width=56,command=del_row)
 del_button.place(x=223,y=5)
 ren_button = ck.CTkButton(data_frame_del_row, text='Replace', fg_color='#626653', hover_color='black', border_width=3,width=64,command=edit_row)
@@ -545,7 +550,7 @@ clear_button_all.place(x=8,y=717)
 quit_button = ck.CTkButton(data_frame, text='Quit', fg_color='#626653', hover_color='red', border_width=3,width=120,command=quit)
 quit_button.place(x=164,y=697)
 
-# add checkbox to select the right option
+# COMBOBOXES
 check_list = ck.CTkComboBox(data_frame_del_row, values=['First Name', 'Last Name','Age', 'Address', 'Email', 'Phone', 'Job Title', 'City'], width=110)
 check_list.place(x=0, y=5)
 export_file = ck.CTkComboBox(data_frame_export, values=['CSV', 'XLS'], width=120)
@@ -555,17 +560,8 @@ check_group.place(x=0, y=5)
 check_group_func = ck.CTkComboBox(data_frame_group, values=['Mean', 'Min', 'Max', 'Size', 'CumCount'], width=120)
 check_group_func.place(x=0, y=40)
 
-# add label 
-lbl_is = ck.CTkLabel(data_frame_del_row, text='is', text_color='black')
-lbl_is.place(x=120,y=5)
-lbl_to = ck.CTkLabel(data_frame_del_row, text='to', text_color='black')
-lbl_to.place(x=112,y=40)
-lbl_is_2 = ck.CTkLabel(data_frame_del_row, text='is', text_color='black')
-lbl_is_2.place(x=5,y=40)
-
-# binding
+# BINDING
 nb_users_entry.bind('<FocusIn>', lambda event: nb_users_entry.delete(0,END))
 
 #window.protocol('WM_DELETE_WINDOW', lambda: onclose(window))
 window.mainloop()
-
