@@ -63,4 +63,4 @@ SpreadCho generates a CSV file that contains user informations. From that, you c
 
 ### REQUIREMENTS INSTALLATION
 
-> pending
+> pip install -r requirements.txt
