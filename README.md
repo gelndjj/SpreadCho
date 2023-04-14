@@ -1,5 +1,5 @@
 # SpreadCho
-_SpreadCho is a random users genrator written in Python. It uses the package Faker to generate user informations._
+_SpreadCho is a random user generator written in Python. It uses the package Faker to generate user informations._
 
 ```
    _____                           __________        
@@ -56,7 +56,7 @@ SpreadCho generates a CSV file that contains user informations. From that, you c
 
 ![Screenshot](https://github.com/gelndjj/SpreadCho/blob/main/img/avg_age.png)
 
-* The same using Age / Size displays the number of users for all ages found in the CSV.<br />
+* The same using Age / Size displays the number of users for every single age found in the CSV.<br />
 
 ![Screenshot](https://github.com/gelndjj/SpreadCho/blob/main/img/unique_age.png)
 
