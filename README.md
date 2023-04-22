@@ -1,3 +1,5 @@
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Z8Z6KMSBT)
+
 # SpreadCho
 _SpreadCho is a random user generator written in Python. It uses the package Faker to generate user informations._
 
