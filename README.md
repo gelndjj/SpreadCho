@@ -62,5 +62,11 @@ SpreadCho generates a CSV file that contains user informations. From that, you c
 
 
 ### REQUIREMENTS INSTALLATION
+```
+pip install -r requirements.txt
+```
 
-> pip install -r requirements.txt
+### CLONE REPO
+```
+git clone https://github.com/gelndjj/SpreadCho.git
+```
