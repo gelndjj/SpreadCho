@@ -262,11 +262,17 @@ def display_data():
 
 def clear_frame():
     for items in display_frame.winfo_children():
-        items.destroy()  
+        items.destroy()
+    count_lbl_rows.configure(text="")
+    count_dup_lbl.configure(text="")
+    string_del_entry.delete(0,'end')
+    string_ren_entry.delete(0,'end')
+    string_ren_entry_2.delete(0,'end')
+    nb_files_entry.delete(0,'end')
 
 def del_row():
-    count_lbl_rows.destroy()
-    count_dup_lbl.destroy()
+    count_lbl_rows.configure(text="")
+    count_dup_lbl.configure(text="")
 
     if not os.path.isfile(f'{os.getcwd()}/user_infos.csv'):
         messagebox.showinfo(title='File not found', message='Please Generate Data Before Deleting')
@@ -403,18 +409,15 @@ def export_direct():
 
 def count_rows():
 
-    global count_lbl_rows
-
     csv_file = pd.read_csv(f'{os.getcwd()}/user_infos.csv')
-    count_lbl_rows = ck.CTkLabel(data_frame_inf,text=f'Total row(s): {len(csv_file)}', text_color='red')
-    count_lbl_rows.place(x=3,y=5)
+    count_lbl_rows.configure(data_frame_inf,text=f'Total row(s): {len(csv_file)}', text_color='red')
+    count_lbl_rows.update()
+
 def dupl_rows():
 
-    global count_dup_lbl
-
     csv_file = pd.read_csv(f'{os.getcwd()}/user_infos.csv')
-    count_dup_lbl = ck.CTkLabel(data_frame_inf,text=f'Duplicate(s): {len(csv_file[csv_file.duplicated()])}', text_color='red')
-    count_dup_lbl.place(x=4,y=30)
+    count_dup_lbl.configure(data_frame_inf,text=f'Duplicate(s): {len(csv_file[csv_file.duplicated()])}', text_color='red')
+    count_dup_lbl.update()
 
 def on_entry_change(*args):
     if first_name_entry.get():
@@ -501,6 +504,10 @@ job_title_label = ck.CTkLabel(data_frame_infos, text='Job Title', text_color='bl
 job_title_label.grid(row=6, column=0)
 city_label = ck.CTkLabel(data_frame_infos, text='City', text_color='black')
 city_label.grid(row=7, column=0)
+count_lbl_rows = ck.CTkLabel(data_frame_inf, text='', text_color='red')
+count_lbl_rows.place(x=3, y=5)
+count_dup_lbl = ck.CTkLabel(data_frame_inf, text='', text_color='red')
+count_dup_lbl.place(x=4, y=30)
 
 # ENTRIES
 first_name_entry_var = StringVar()
