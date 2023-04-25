@@ -152,43 +152,52 @@ def save_rand_data():
     count_rows()
 
 def generate_users_mul():
-
     nb_users = int(nb_users_entry.get())
     nb_ss = int(nb_files_entry.get())
-    occ = 1
+    occ = 0
     file = 'users_info_mul.csv'
     file_raw = os.path.splitext(file)[0]
     file_ext = os.path.splitext(file)[1]
-    
-    while occ < nb_ss:
+    destination_dir = filedialog.askdirectory(title="Select destination directory")
+    if destination_dir:
 
-        with open(f'{file_raw}%s{file_ext}' % occ,'w', newline='') as file:
-            writer = csv.DictWriter(file, fieldnames=columns)
-            writer.writeheader()
+        while occ < nb_ss:
 
-            for i in range(nb_users):
-                first_name = fk.first_name()
-                last_name = fk.last_name()
-                age = r.randint(19,65)
-                address = fk.address()
-                domain = fk.free_email_domain()
-                email = f'{first_name}.{last_name}@{domain}'
-                phone = f'({r.randint(100,1000)}) {r.randint(100,1000)}-{r.randint(1000,10000)}'
-                job_title = fk.job()
-                city = fk.city()
+            with open(f'{file_raw}%s{file_ext}' % occ, 'w', newline='') as file:
+                writer = csv.DictWriter(file, fieldnames=columns)
+                writer.writeheader()
 
-                writer.writerow({
-                    'first_name':first_name,
-                    'last_name':last_name,
-                    'age':age,
-                    'address':address,
-                    'email':email.lower(),
-                    'phone':phone,
-                    'job_title':job_title,
-                    'city':city
-                })
-        occ += 1
-        print('done')
+                for i in range(nb_users):
+                    first_name = fk.first_name()
+                    last_name = fk.last_name()
+                    age = r.randint(19, 65)
+                    address = fk.address()
+                    domain = fk.free_email_domain()
+                    email = f'{first_name}.{last_name}@{domain}'
+                    phone = f'({r.randint(100, 1000)}) {r.randint(100, 1000)}-{r.randint(1000, 10000)}'
+                    job_title = fk.job()
+                    city = fk.city()
+
+                    writer.writerow({
+                        'first_name': first_name,
+                        'last_name': last_name,
+                        'age': age,
+                        'address': address,
+                        'email': email.lower(),
+                        'phone': phone,
+                        'job_title': job_title,
+                        'city': city
+                    })
+            occ += 1
+            for file_name in os.listdir(os.getcwd()):
+                if file_name.startswith('users_info_mul'):
+                    file_path = os.path.join(os.getcwd(), file_name)
+                    if os.path.isfile(file_path):
+                        os.rename(file_path, os.path.join(destination_dir, file_name))
+
+        tk.messagebox.showinfo("Done", f'{nb_ss} CSV files of {nb_users} users exported successfully!')
+    else:
+        tk.messagebox.showinfo("Undone", 'Operation Aborted !')
 
 def display_data():
     if not os.path.isfile(f'{os.getcwd()}/user_infos.csv'):
