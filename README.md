@@ -12,7 +12,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/gelndjj/"SpreadCho">
-    <resources src="https://github.com/gelndjj/SpreadCho/blob/main/resources/image.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/gelndjj/SpreadCho/blob/main/resources/image.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">SpreadCho</h3>
@@ -54,7 +54,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 <div align="center">
-<resources src="https://github.com/gelndjj/SpreadCho/blob/main/resources/main_windows.png" alt="Logo" width="874" height="593">
+<img src="https://github.com/gelndjj/SpreadCho/blob/main/resources/main_windows.png" alt="Logo" width="874" height="593">
 </br>
 </br>
 This project is a draft of what I originally wanted to do ; the first idea was to generate fake users to after add them into Active Directory.
@@ -82,11 +82,11 @@ After getting my hands in some Python modules, it took another direction but the
 ## Built With
 
 <a href="https://www.python.org">
-<resources src="https://github.com/gelndjj/SpreadCho/blob/main/resources/py_icon.png" alt="Icon" width="32" height="32">
+<img src="https://github.com/gelndjj/SpreadCho/blob/main/resources/py_icon.png" alt="Icon" width="32" height="32">
 </a>
 &nbsp;
 <a href="https://customtkinter.tomschimansky.com">
-<resources src="https://github.com/gelndjj/SpreadCho/blob/main/resources/ctk_icon.png" alt="Icon" width="32" height="32">
+<img src="https://github.com/gelndjj/SpreadCho/blob/main/resources/ctk_icon.png" alt="Icon" width="32" height="32">
 </a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
