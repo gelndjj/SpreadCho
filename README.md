@@ -95,30 +95,28 @@ After getting my hands in some Python modules, it took another direction but the
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-</br>
 
-## Add Manually Datas<br />
-##### Fill the fields in and click on Add User to add a row to the CSV.<br />
+### Add Manually Datas<br />
+Fill the fields in and click on Add User to add a row to the CSV.<br />
 
-## Generate Multiple Users<br />
-##### Type in a number then click on Generate, the user info will be automatically displayed.<br />
+### Generate Multiple Users<br />
+Type in a number then click on Generate, the user info will be automatically displayed.<br />
 
-## Delete Row(s) or Replace Information<br />
-##### Select the information you want to delete, write it in the specific field then click on Delete. It will be updated immediately.<br />
+### Delete Row(s) or Replace Information<br />
+Select the information you want to delete, write it in the specific field then click on Delete. It will be updated immediately.<br />
 
-## Group By
-##### The Group By function is used to split into groups based on some criteria; The criteria are available in the select boxes. Let say you want to see how many occurences of each first name in the CSV. Select First Name in the first select box then select Size in the second one. It will be displayed  how many times each First Name occurs.<br />
+### Group By
+The Group By function is used to split into groups based on some criteria; The criteria are available in the select boxes. Let say you want to see how many occurences of each first name in the CSV. Select First Name in the first select box then select Size in the second one. It will be displayed  how many times each First Name occurs.<br />
 
-##### If you want for instance, to delete all users who are 30 years old, group by using Age/Size and in the Delete section type 30 and Delete.
+#### If you want for instance, to delete all users who are 30 years old, group by using Age/Size and in the Delete section type 30 and Delete.
 
-## Export
-##### Select the format you wan to export to (CSV or XLS).<br />
+### Export
+Select the format you wan to export to (CSV or XLS).<br />
 
-## Info
-#####  Display info such as Total Rows in the CSV or Number of Duplicates. Infos are updated after every changes.
+### Info
+Display info such as Total Rows in the CSV or Number of Duplicates. Infos are updated after every changes.
 
-### Closing the soft DELETE all *.csv and *.xls located where the script is launched so do not forget to EXPORT to keep the changes.
-
+#### Closing the soft DELETE all *.csv and *.xls located where the script is launched so do not forget to EXPORT to keep the changes.
 
 * Example below grouping by First Name / Mean.<br />It displays the age average of every single user.<br />
 
