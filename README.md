@@ -170,7 +170,7 @@ Distributed under the GNU GENERAL PUBLIC LICENSE. See `LICENSE.txt` for more inf
 ## Contact
 
 
-[LinkedIn](https://github.com/gelndjj/SpreadCho)
+[LinkedIn](https://www.linkedin.com/in/jonathanduthil/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
